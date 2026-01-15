@@ -1,22 +1,50 @@
-# CNN Visualizer
+# Convolutional Neural Network (CNN) Visualizer
 
-This project is a web application designed to visually demonstrate the convolution operation in Convolutional Neural Networks (CNNs). It features a **Django** backend and a **React (Vite)** frontend with a premium, responsive UI.
+A premium, high-performance web application designed to interactively visualize and calculate the mathematical operations behind Convolutional Neural Networks. Built with **Django** (backend) and **React + Vite** (frontend).
 
-## 🎯 Features
+![Project Preview](assets/preview.png)
 
-### Backend (Django)
--   Standard Django project structure (`backend/core`).
--   Configured CORS to allow seamless communication with the frontend.
+## 🌟 Key Features
 
-### Frontend (Vite + React)
--   **UI Library**: Shadcn/UI + TailwindCSS for a modern, accessible dark-mode design.
--   **Visualizer Logic**:
-    -   **Convolution Math**: Pure TypeScript implementation of 2D convolution algorithms.
-    -   **State Management**: Custom hooks with **Local Storage persistence** to save your configurations.
--   **Key Components**:
-    -   `ConfigPanel`: Interactive sidebar to adjust Kernels, Channels, and Matrix dimensions.
-    -   `VisualizerBoard`: Displays Inputs, Filters, and Outputs in connected columns.
-    -   `MatrixGrid`: Animated grid component using Framer Motion for smooth visualizations.
+### 🧠 Interactive Visualization
+- **Infinite Canvas**: A drag-and-drop "infinite" board that lets you navigate large neural network layers with ease.
+- **Smart Zoom**:
+    - **Cursor-Centered Zoom**: Hold `Ctrl` + `Scroll` (or `Cmd` + `Scroll`) to zoom exactly where you are looking.
+    - **Physical Panning**: Drag the board to move around like a physical map.
+    - **Auto Fit**: Instantly center and scale the visualization to fit your screen.
+- **Real-Time Convolution**: Watch as kernels slide over input matrices to produce output feature maps.
+- **Deep Inspection**: Hover over any cell to see its value.
+
+### 🧮 Operations Calculator
+A built-in tool to estimate the computational cost of a convolutional layer.
+- **Input Parameters**: Configure Input Dimensions ($H \times W \times C$), Kernel Size ($K$), Stride ($S$), Padding ($P$), and Number of Filters ($F$).
+- **Complexity Analysis**:
+    - **FLOPs Estimation**: Calculates Total Multiplications, Additions, and total Floating Point Operations.
+    - **Breakdown**: Detailed view of Intra-Kernel Sums vs. Channel Merges vs. Bias Adds.
+- **Sparsity Impact**: Simulate weight sparsity (e.g., pruning) to see how many operations can be skipped (Zero Ops).
+
+### ⚡ Performance & Design
+- **High Performance**: Optimized using `React.memo` and render virtualization to handle large matrices at 60 FPS.
+- **Premium UI**: Designed with `Shadcn/UI` and `TailwindCSS` for a modern, accessible dark-mode experience.
+- **Persistence**: Your configuration is automatically saved to Local Storage.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+-   **Framework**: React 18 + Vite
+-   **Styling**: TailwindCSS
+-   **Components**: Shadcn/UI + Radix Primitives
+-   **Animations**: Framer Motion
+-   **Icons**: Lucide React
+
+### Backend
+-   **Framework**: Django (Python)
+-   **API**: RESTful architecture
+-   **CORS**: Configured for seamless cross-origin requests
+
+---
 
 ## 🚀 How to Run
 
@@ -27,11 +55,21 @@ You will need two terminal windows to run the application (one for the backend a
 -   Node.js & npm
 
 ### Terminal 1: Backend Setup
-1.  Source to the virtual environment (in the root folder of the project):
+1.  **Create a virtual environment** (recommended):
     ```bash
+    # Linux/Mac
+    python3 -m venv venv
     source venv/bin/activate
+    
+    # Windows
+    # python -m venv venv
+    # venv\Scripts\activate
     ```
-2.  Run the development server:
+2.  **Install dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **Run the development server**:
     ```bash
     python backend/manage.py runserver
     ```
@@ -49,21 +87,58 @@ You will need two terminal windows to run the application (one for the backend a
     ```bash
     npm run dev
     ```
-4.  Open [http://localhost:5173](http://localhost:5173) in your browser to start using the visualizer.
+4.  Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## ℹ️ How to Use
+---
 
-1.  **Configuration**: Use the **ConfigPanel** on the left to set:
-    -   **Input Size**: Dimensions of the input matrix.
-    -   **Kernels**: Number of filters and their size.
-    -   **Stride/Padding**: (If implemented) convolution parameters.
-2.  **Visualization**:
-    -   The **VisualizerBoard** will update in real-time.
-    -   Hover over elements to see interactions or values.
-    -   Observe how the kernels slide over the input channels to produce the output feature maps.
+## 📖 User Guide
 
-## 🛠️ Code Structure
+### 1. The Visualizer Board
+This is the main workspace where the magic happens.
+-   **Left Panel (Config)**: Set your Key Parameters here.
+    -   **Input Size**: Adjust the height/width of the input image.
+    -   **Kernels/Filters**: Add or remove filters and change their values.
+    -   **Padding**: Add padding zeros around the input.
+-   **The Canvas**:
+    -   **Pan**: Click and drag anywhere on the background.
+    -   **Zoom**: Use `Ctrl + Scroll` or the floating `+` / `-` buttons.
+    -   **Reset**: Click the corner `Maximize` icon to auto-fit the diagram.
 
--   `frontend/src/logic/convolution.ts`: Contains the core mathematical logic for convolution.
--   `frontend/src/hooks/useCNN.ts`: Manages the application state and logic.
--   `frontend/src/components/visualizer/`: Contains the specific React components for the visualization (Grid, Board, etc.).
+### 2. The Operations Calculator
+Click the **Calculator** icon in the top-right corner to open the standalone calculator.
+Use this to plan your network architecture constraints.
+-   Enter your layer hyperparameters.
+-   Review the total **FLOPs** to check if the layer is too computationally expensive.
+-   Adjust **Sparsity** to see potential performance gains from pruning.
+
+---
+
+## 📂 Project Structure
+
+```
+├── backend/               # Django project root
+│   ├── core/              # Main app configuration
+│   └── manage.py          # Django CLI
+├── frontend/              # React application
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── calculator/ # Operations Calculator
+│   │   │   ├── config/     # Configuration Sidebar
+│   │   │   ├── visualizer/ # Visualizer Components (Board, Grid)
+│   │   │   └── ui/         # Reusable UI components
+│   │   ├── logic/          # Math convolution algorithms
+│   │   └── hooks/          # Application state logic
+│   └── vite.config.ts      # Vite configuration
+└── README.md
+```
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1.  Fork the project
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
