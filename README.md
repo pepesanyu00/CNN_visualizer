@@ -1,6 +1,6 @@
 # Convolutional Neural Network (CNN) Visualizer
 
-A premium, high-performance web application designed to interactively visualize and calculate the mathematical operations behind Convolutional Neural Networks. Built with **Django** (backend) and **React + Vite** (frontend).
+A web application designed to interactively visualize and calculate the mathematical operations behind Convolutional Neural Networks. Built with **Django** (backend) and **React + Vite** (frontend).
 
 ![Project Preview](assets/preview.png)
 
@@ -13,7 +13,6 @@ A premium, high-performance web application designed to interactively visualize 
     - **Physical Panning**: Drag the board to move around like a physical map.
     - **Auto Fit**: Instantly center and scale the visualization to fit your screen.
 - **Real-Time Convolution**: Watch as kernels slide over input matrices to produce output feature maps.
-- **Deep Inspection**: Hover over any cell to see its value.
 
 ### 🧮 Operations Calculator
 A built-in tool to estimate the computational cost of a convolutional layer.
@@ -25,7 +24,7 @@ A built-in tool to estimate the computational cost of a convolutional layer.
 
 ### ⚡ Performance & Design
 - **High Performance**: Optimized using `React.memo` and render virtualization to handle large matrices at 60 FPS.
-- **Premium UI**: Designed with `Shadcn/UI` and `TailwindCSS` for a modern, accessible dark-mode experience.
+- **UI**: Designed with `Shadcn/UI` and `TailwindCSS` for a modern, accessible dark-mode experience.
 - **Persistence**: Your configuration is automatically saved to Local Storage.
 
 ---
